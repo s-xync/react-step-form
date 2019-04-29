@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import axios from "axios";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import { List, ListItem } from "material-ui/List";
@@ -7,8 +8,17 @@ import RaisedButton from "material-ui/RaisedButton";
 export class Confirm extends Component {
   continue = e => {
     e.preventDefault();
-    // Process Form
-    this.props.nextStep();
+    axios
+      .post("https://en5du274qio5p.x.pipedream.net/", {
+        ...this.props.values
+      })
+      .then(() => {
+        this.props.nextStep();
+      })
+      .catch(e => {
+        console.log("Error!");
+        this.props.error();
+      });
   };
 
   back = e => {

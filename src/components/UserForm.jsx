@@ -3,6 +3,7 @@ import FormUserDetails from "./FormUserDetails";
 import FormPersonalDetails from "./FormPersonalDetails";
 import Confirm from "./Confirm";
 import Success from "./Success";
+import Error from "./Error";
 
 export class UserForm extends Component {
   state = {
@@ -23,6 +24,11 @@ export class UserForm extends Component {
   prevStep = () => {
     const { step } = this.state;
     this.setState({ step: step - 1 });
+  };
+
+  error = () => {
+    const { step } = this.state;
+    this.setState({ step: step + 2 });
   };
 
   handleChange = input => e => {
@@ -56,13 +62,15 @@ export class UserForm extends Component {
           <Confirm
             nextStep={this.nextStep}
             prevStep={this.prevStep}
+            error={this.error}
             values={values}
           />
         );
       case 4:
         return <Success />;
+
       default:
-        return <h1>Error!!</h1>;
+        return <Error />;
     }
   }
 }
